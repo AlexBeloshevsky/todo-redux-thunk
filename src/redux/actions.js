@@ -6,6 +6,19 @@ function fetchingJoke() {
   };
 }
 
+function addItemToLocalStorage(item) {
+  return (dispatch) => {
+    console.log(item);
+  };
+}
+
+function getItemsFromLocalStorage() {
+  //TODO: make this function async with setTimeout
+  return (dispatch) => {
+    console.log(localStorage.getItem("items"));
+  };
+}
+
 function fetchedJoke(joke) {
   return {
     type: "FETCHED_JOKE",
@@ -13,4 +26,4 @@ function fetchedJoke(joke) {
   };
 }
 
-export { fetchingJoke };
+export { fetchingJoke, addItemToLocalStorage, getItemsFromLocalStorage };
