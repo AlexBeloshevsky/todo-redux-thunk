@@ -7,6 +7,7 @@ function addItemToLocalStorage(item) {
 //TODO: get getItemsFromLocalStorage to update state and render the todo list
 //TODO: use addItemToLocalStorage to update localStorage
 //Todo: make sure that what's in localStorage is the same as what's in the UI
+//TODO: create a loader that spins on the screen until the data is loaded
 
 function getItemsFromLocalStorage() {
   return async (dispatch) => {
