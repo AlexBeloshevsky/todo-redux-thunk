@@ -1,29 +1,32 @@
-function fetchingJoke() {
-  return (dispatch) => {
-    fetch("https://official-joke-api.appspot.com/random_joke")
-      .then((resp) => resp.json())
-      .then((joke) => dispatch(fetchedJoke(joke)));
-  };
-}
-
 function addItemToLocalStorage(item) {
   return (dispatch) => {
     console.log(item);
   };
 }
 
+//TODO: get getItemsFromLocalStorage to update state and render the todo list
+//TODO: use addItemToLocalStorage to update localStorage
+//Todo: make sure that what's in localStorage is the same as what's in the UI
+
 function getItemsFromLocalStorage() {
-  //TODO: make this function async with setTimeout
-  return (dispatch) => {
-    console.log(localStorage.getItem("items"));
+  return async (dispatch) => {
+    function onSuccess(success) {
+      // dispatch({ type: CREATE_USER, payload: success });
+      // return success;
+      console.log(success);
+    }
+    function onError(error) {
+      // dispatch({ type: ERROR_GENERATED, error });
+      // return error;
+      console.log("error");
+    }
+    try {
+      const success = await localStorage.getItem("items");
+      return onSuccess(success);
+    } catch (error) {
+      return onError(error);
+    }
   };
 }
 
-function fetchedJoke(joke) {
-  return {
-    type: "FETCHED_JOKE",
-    payload: joke,
-  };
-}
-
-export { fetchingJoke, addItemToLocalStorage, getItemsFromLocalStorage };
+export { addItemToLocalStorage, getItemsFromLocalStorage };
