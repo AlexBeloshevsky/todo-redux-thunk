@@ -3,11 +3,13 @@ function addItemToLocalStorage(item) {
     console.log(item);
   };
 }
-
+//TODO: take the localStorage.getItem function outside and wrap it in a promise
+//TODO: add the ability to update tasks
 //TODO: get getItemsFromLocalStorage to update state and render the todo list
 //TODO: use addItemToLocalStorage to update localStorage
-//Todo: make sure that what's in localStorage is the same as what's in the UI
+//TODO: make sure that what's in localStorage is the same as what's in the UI
 //TODO: create a loader that spins on the screen until the data is loaded
+//TODO: change to typescript
 
 function getItemsFromLocalStorage() {
   return async (dispatch) => {
