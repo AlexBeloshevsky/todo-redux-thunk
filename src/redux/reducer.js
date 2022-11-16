@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
+import { GET_ITEMS_SUCCESS, GET_ITEMS_ERROR } from "./types";
 
-const jokeReducer = (state = null, action) => {
+const itemReducer = (state = null, action) => {
   switch (action.type) {
-    case "FETCHED_JOKE":
+    case GET_ITEMS_SUCCESS:
       return action.payload;
     default:
       return state;
@@ -10,7 +11,7 @@ const jokeReducer = (state = null, action) => {
 };
 
 const rootReducer = combineReducers({
-  joke: jokeReducer,
+  items: itemReducer,
 });
 
 export default rootReducer;

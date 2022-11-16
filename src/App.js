@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToLocalStorage,
   getItemsFromLocalStorage,
@@ -16,7 +16,11 @@ function App() {
 
   setTimeout(() => {
     dispatch(getItemsFromLocalStorage());
-  }, 2000);
+  }, 1000);
+
+  const items = useSelector((state) => state);
+
+  console.log(items);
 
   return (
     <div className="App">

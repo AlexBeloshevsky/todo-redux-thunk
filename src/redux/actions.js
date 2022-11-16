@@ -1,9 +1,11 @@
+import { GET_ITEMS_SUCCESS, GET_ITEMS_ERROR } from "./types";
+
 function addItemToLocalStorage(item) {
   return (dispatch) => {
     console.log(item);
   };
 }
-//TODO: take the localStorage.getItem function outside and wrap it in a promise
+
 //TODO: add the ability to update tasks
 //TODO: get getItemsFromLocalStorage to update state and render the todo list
 //TODO: use addItemToLocalStorage to update localStorage
@@ -11,20 +13,26 @@ function addItemToLocalStorage(item) {
 //TODO: create a loader that spins on the screen until the data is loaded
 //TODO: change to typescript
 
+const getBrandFonts = async (): Promise => {
+  try {
+    const res = (await localStorage.getItem("items")) || "";
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
 function getItemsFromLocalStorage() {
   return async (dispatch) => {
     function onSuccess(success) {
-      // dispatch({ type: CREATE_USER, payload: success });
-      // return success;
-      console.log(success);
+      dispatch({ type: GET_ITEMS_SUCCESS, payload: success });
     }
     function onError(error) {
-      // dispatch({ type: ERROR_GENERATED, error });
-      // return error;
+      dispatch({ type: GET_ITEMS_ERROR, error });
       console.log("error");
     }
     try {
-      const success = await localStorage.getItem("items");
+      const success = await getBrandFonts();
       return onSuccess(success);
     } catch (error) {
       return onError(error);
