@@ -13,30 +13,24 @@ function addItemToLocalStorage(item) {
 //TODO: create a loader that spins on the screen until the data is loaded
 //TODO: change to typescript
 
-const getBrandFonts = async (): Promise => {
-  try {
-    const res = (await localStorage.getItem("items")) || "";
-    return res;
-  } catch (error) {
-    throw error;
-  }
-};
+const getBrandFonts = new Promise((resolve, reject) => {
+  const itemsFromLocalStorage = JSON.parse(localStorage.getItem("items"));
+  setTimeout(() => {
+    if (itemsFromLocalStorage.length === 0) {
+      resolve([]);
+    }
+    if (itemsFromLocalStorage.length > 0) {
+      resolve(itemsFromLocalStorage);
+    }
+    reject("couldnt get items from local storage");
+  }, 1500);
+});
 
 function getItemsFromLocalStorage() {
-  return async (dispatch) => {
-    function onSuccess(success) {
-      dispatch({ type: GET_ITEMS_SUCCESS, payload: success });
-    }
-    function onError(error) {
-      dispatch({ type: GET_ITEMS_ERROR, error });
-      console.log("error");
-    }
-    try {
-      const success = await getBrandFonts();
-      return onSuccess(success);
-    } catch (error) {
-      return onError(error);
-    }
+  return (dispatch) => {
+    getBrandFonts
+      .then((res) => dispatch({ type: GET_ITEMS_SUCCESS, payload: res }))
+      .catch((error) => dispatch({ type: GET_ITEMS_ERROR, payload: error }));
   };
 }
 
