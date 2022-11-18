@@ -1,10 +1,24 @@
 import { combineReducers } from "redux";
-import { GET_ITEMS_SUCCESS, GET_ITEMS_ERROR } from "./types";
+import { GET_ITEMS_SUCCESS, GET_ITEMS_ERROR, SET_LOADING } from "./types";
 
-const itemReducer = (state = null, action) => {
+const initialState = {
+  loading: false,
+  error: null,
+  items: [],
+};
+
+const itemReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ITEMS_SUCCESS:
-      return action.payload;
+      return {
+        ...state,
+        items: action.payload,
+      };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
     default:
       return state;
   }

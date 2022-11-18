@@ -1,4 +1,4 @@
-import { GET_ITEMS_SUCCESS, GET_ITEMS_ERROR } from "./types";
+import { GET_ITEMS_SUCCESS, GET_ITEMS_ERROR, SET_LOADING } from "./types";
 
 function addItemToLocalStorage(item) {
   return (dispatch) => {
@@ -7,10 +7,7 @@ function addItemToLocalStorage(item) {
 }
 
 //TODO: add the ability to update tasks
-//TODO: get getItemsFromLocalStorage to update state and render the todo list
 //TODO: use addItemToLocalStorage to update localStorage
-//TODO: make sure that what's in localStorage is the same as what's in the UI
-//TODO: create a loader that spins on the screen until the data is loaded
 //TODO: change to typescript
 
 const getBrandFonts = new Promise((resolve, reject) => {
@@ -28,8 +25,10 @@ const getBrandFonts = new Promise((resolve, reject) => {
 
 function getItemsFromLocalStorage() {
   return (dispatch) => {
+    dispatch({ type: SET_LOADING, payload: true });
     getBrandFonts
       .then((res) => dispatch({ type: GET_ITEMS_SUCCESS, payload: res }))
+      .then((res) => dispatch({ type: SET_LOADING, payload: false }))
       .catch((error) => dispatch({ type: GET_ITEMS_ERROR, payload: error }));
   };
 }

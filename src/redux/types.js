@@ -1,2 +1,3 @@
 export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
 export const GET_ITEMS_ERROR = "GET_ITEMS_ERROR";
+export const SET_LOADING = "SET_LOADING";

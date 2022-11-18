@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToLocalStorage,
@@ -14,13 +14,11 @@ function App() {
     dispatch(addItemToLocalStorage(inputValue));
   };
 
-  setTimeout(() => {
+  const { loading, items } = useSelector((state) => state.items);
+
+  useEffect(() => {
     dispatch(getItemsFromLocalStorage());
-  }, 1000);
-
-  const items = useSelector((state) => state);
-
-  console.log(items);
+  }, []);
 
   return (
     <div className="App">
@@ -33,6 +31,17 @@ function App() {
       />
       <br />
       <button onClick={handleUpdatingtasks}>Add task to localStorage</button>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          {items.map((item) => (
+            <li key={item} value={item} onClick={() => {}}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
