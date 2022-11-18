@@ -24,12 +24,19 @@ const getBrandFonts = new Promise((resolve, reject) => {
 });
 
 function getItemsFromLocalStorage() {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({ type: SET_LOADING, payload: true });
-    getBrandFonts
-      .then((res) => dispatch({ type: GET_ITEMS_SUCCESS, payload: res }))
-      .then((res) => dispatch({ type: SET_LOADING, payload: false }))
-      .catch((error) => dispatch({ type: GET_ITEMS_ERROR, payload: error }));
+    try {
+      const res = await getBrandFonts;
+      dispatch({ type: GET_ITEMS_SUCCESS, payload: res });
+      dispatch({ type: SET_LOADING, payload: false });
+    } catch (error) {
+      dispatch({ type: GET_ITEMS_ERROR, payload: error });
+    }
+    // getBrandFonts
+    //   .then((res) => dispatch({ type: GET_ITEMS_SUCCESS, payload: res }))
+    //   .then((res) => dispatch({ type: SET_LOADING, payload: false }))
+    //   .catch((error) => dispatch({ type: GET_ITEMS_ERROR, payload: error }));
   };
 }
 
