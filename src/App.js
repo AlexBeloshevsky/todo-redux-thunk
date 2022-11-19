@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToLocalStorage,
   getItemsFromLocalStorage,
+  removeItemFromLocalStorage,
 } from "./redux/actions";
 
 function App() {
@@ -14,10 +15,15 @@ function App() {
     dispatch(addItemToLocalStorage(inputValue));
   };
 
+  const handleDelete = (item) => {
+    dispatch(removeItemFromLocalStorage(item));
+  };
+
   const { loading, items } = useSelector((state) => state.items);
 
   useEffect(() => {
     dispatch(getItemsFromLocalStorage());
+    setInputValue("");
   }, []);
 
   return (
@@ -30,13 +36,32 @@ function App() {
         onChange={(e) => setInputValue(e.target.value)}
       />
       <br />
-      <button onClick={handleUpdatingtasks}>Add task to localStorage</button>
+      <button onClick={handleUpdatingtasks} style={{ marginBottom: "40px" }}>
+        Add task to localStorage
+      </button>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
+        <ul
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            width: "450px",
+            margin: "0 auto",
+          }}
+        >
           {items.map((item) => (
             <li key={item} value={item} onClick={() => {}}>
+              <button
+                onClick={(event) => {
+                  handleDelete(event.target.value);
+                }}
+                style={{ marginRight: "25px" }}
+                value={item}
+              >
+                Delete task
+              </button>
               {item}
             </li>
           ))}

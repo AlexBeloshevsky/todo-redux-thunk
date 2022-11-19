@@ -1,5 +1,4 @@
-import { combineReducers } from "redux";
-import { GET_ITEMS_SUCCESS, GET_ITEMS_ERROR, SET_LOADING } from "./types";
+import { GET_ITEMS_SUCCESS, GET_ITEMS_ERROR, SET_LOADING } from "../types";
 
 const initialState = {
   loading: false,
@@ -24,8 +23,4 @@ const itemReducer = (state = initialState, action) => {
   }
 };
 
-const rootReducer = combineReducers({
-  items: itemReducer,
-});
-
-export default rootReducer;
+export default itemReducer;
