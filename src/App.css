@@ -5,3 +5,29 @@
 input{
   margin-bottom: 10px;
 }
+
+.taskItem {
+  display: flex;
+  width: 300px;
+  justify-content: flex-start;
+    margin-top: 25px;
+    align-self: center;
+}
+
+.deleteButton {
+  position: absolute;
+  right: 100px;
+  transition: right 1s ease;
+  visibility: hidden;
+}
+
+.updateButton {
+  margin-right: 25px;
+}
+
+.taskItem:hover .deleteButton {
+  right: 300px;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}

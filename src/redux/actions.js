@@ -22,10 +22,19 @@ function removeItemFromLocalStorage(item) {
   };
 }
 
-//TODO: add the ability to update tasks
-//TODO: change to typescript
+//todo add animation to the delete button
 
-const getBrandFonts = new Promise((resolve, reject) => {
+function updateItem(index, item) {
+  return (dispatch, getState) => {
+    const { items } = getState();
+    const itemsToLocalStorage = items.items;
+    itemsToLocalStorage[index] = item;
+    localStorage.setItem("items", JSON.stringify(itemsToLocalStorage));
+    dispatch({ type: GET_ITEMS_SUCCESS, payload: itemsToLocalStorage });
+  };
+}
+
+const getDataFromLocalStorage = new Promise((resolve, reject) => {
   const itemsFromLocalStorage = JSON.parse(localStorage.getItem("items"));
   setTimeout(() => {
     if (!itemsFromLocalStorage) {
@@ -42,7 +51,7 @@ function getItemsFromLocalStorage() {
   return async (dispatch) => {
     dispatch({ type: SET_LOADING, payload: true });
     try {
-      const res = await getBrandFonts;
+      const res = await getDataFromLocalStorage;
       dispatch({ type: SET_LOADING, payload: false });
       dispatch({ type: GET_ITEMS_SUCCESS, payload: res });
     } catch (error) {
@@ -55,4 +64,5 @@ export {
   addItemToLocalStorage,
   getItemsFromLocalStorage,
   removeItemFromLocalStorage,
+  updateItem,
 };

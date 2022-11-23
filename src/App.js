@@ -5,6 +5,7 @@ import {
   addItemToLocalStorage,
   getItemsFromLocalStorage,
   removeItemFromLocalStorage,
+  updateItem,
 } from "./redux/actions";
 
 function App() {
@@ -17,6 +18,11 @@ function App() {
 
   const handleDelete = (item) => {
     dispatch(removeItemFromLocalStorage(item));
+  };
+
+  const handleUpdate = (index) => {
+    dispatch(updateItem(index, inputValue));
+    setInputValue("");
   };
 
   const { loading, items } = useSelector((state) => state.items);
@@ -48,23 +54,38 @@ function App() {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
             width: "450px",
             margin: "0 auto",
+            padding: "0",
           }}
         >
-          {items.map((item) => (
-            <li key={item} value={item} onClick={() => {}}>
+          {items.map((item, index) => (
+            <li
+              className="taskItem"
+              key={index}
+              value={item}
+              onClick={() => {}}
+            >
               <button
+                className="updateButton"
+                onClick={(event) => {
+                  handleUpdate(index);
+                }}
+                value={item}
+              >
+                Update task
+              </button>
+              {item}
+              <button
+                className="deleteButton"
                 onClick={(event) => {
                   handleDelete(event.target.value);
                 }}
-                style={{ marginRight: "25px" }}
                 value={item}
               >
                 Delete task
               </button>
-              {item}
             </li>
           ))}
         </ul>
