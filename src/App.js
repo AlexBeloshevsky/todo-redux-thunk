@@ -32,8 +32,6 @@ function App() {
     setInputValue("");
   }, []);
 
-  //todo add another input for task to update and a button for each li so it can be updated with the input value
-
   return (
     <div className="App">
       <h1>Basic Todo app with Redux and Thunk</h1>
@@ -69,7 +67,7 @@ function App() {
             >
               <button
                 className="updateButton"
-                onClick={(event) => {
+                onClick={() => {
                   handleUpdate(index);
                 }}
                 value={item}

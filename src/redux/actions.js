@@ -22,8 +22,6 @@ function removeItemFromLocalStorage(item) {
   };
 }
 
-//todo add animation to the delete button
-
 function updateItem(index, item) {
   return (dispatch, getState) => {
     const { items } = getState();
